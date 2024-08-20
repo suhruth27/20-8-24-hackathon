@@ -1,0 +1,23 @@
+output:-
+Is chain valid? True
+Block 0 [Hash: de3ab61bcdecaa425621c4631403317257dfeef6536cb0d5aa4f6a1eda2fc476]
+Timestamp: 1724173916.3366966
+Data: Genesis Block
+Previous Hash: 0
+
+Block 1 [Hash: 72835a9b147c4c0f2a7e2587808fcb66588c6165637313710879815ee5c665b2]
+Timestamp: 1724173916.336796
+Data: {'item': 'Art', 'bid': 1500, 'bidder': 'Alice'}
+Previous Hash: de3ab61bcdecaa425621c4631403317257dfeef6536cb0d5aa4f6a1eda2fc476
+
+Block 2 [Hash: 93974130c97ce3682d75f8621189afa8eb743e82f48e220e40c0ebf69f2276d8]
+Timestamp: 1724173916.336853
+Data: {'item': 'Art', 'bid': 1400, 'bidder': 'Bob'}
+Previous Hash: 72835a9b147c4c0f2a7e2587808fcb66588c6165637313710879815ee5c665b2
+
+Block 3 [Hash: 91486d6b0e2f7e5a82f63548a6aeb068d88889156b40043c804665cc3885db96]
+Timestamp: 1724173916.3368967
+Data: {'item': 'Art', 'bid': 1600, 'bidder': 'Charlie'}
+Previous Hash: 93974130c97ce3682d75f8621189afa8eb743e82f48e220e40c0ebf69f2276d8
+
+The minimum bid is: $1400
