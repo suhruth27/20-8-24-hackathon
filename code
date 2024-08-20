@@ -1,0 +1,66 @@
+import hashlib
+import time
+
+class Block:
+    def __init__(self, idx, tstamp, info, prev_hash):
+        self.idx = idx
+        self.tstamp = tstamp
+        self.info = info
+        self.prev_hash = prev_hash
+        self.hash = self.get_hash()
+
+    def get_hash(self):
+        block_str = f"{self.idx}{self.tstamp}{self.info}{self.prev_hash}"
+        return hashlib.sha256(block_str.encode()).hexdigest()
+
+class Chain:
+    def __init__(self):
+        self.chain = [self.genesis_block()]
+        self.bids = []
+
+    def genesis_block(self):
+        return Block(0, time.time(), "Genesis Block", "0")
+
+    def latest_block(self):
+        return self.chain[-1]
+
+    def add_block(self, info):
+        new_block = Block(len(self.chain), time.time(), info, self.latest_block().hash)
+        self.chain.append(new_block)
+        if "bid" in info:
+            self.bids.append(info["bid"])
+
+    def valid_chain(self):
+        for i in range(1, len(self.chain)):
+            curr_block = self.chain[i]
+            prev_block = self.chain[i - 1]
+            if curr_block.hash != curr_block.get_hash():
+                return False
+            if curr_block.prev_hash != prev_block.hash:
+                return False
+        return True
+
+    def min_bid(self):
+        if not self.bids:
+            return None
+        return min(self.bids)
+
+auction = Chain()
+
+auction.add_block({"item": "Art", "bid": 1500, "bidder": "Alice"})
+auction.add_block({"item": "Art", "bid": 1400, "bidder": "Bob"})
+auction.add_block({"item": "Art", "bid": 1600, "bidder": "Charlie"})
+
+print("Is chain valid?", auction.valid_chain())
+
+for block in auction.chain:
+    print(f"Block {block.idx} [Hash: {block.hash}]")
+    print(f"Timestamp: {block.tstamp}")
+    print(f"Data: {block.info}")
+    print(f"Previous Hash: {block.prev_hash}\n")
+
+min_bid = auction.min_bid()
+if min_bid is not None:
+    print(f"The minimum bid is: ${min_bid}")
+else:
+    print("No bids.")
